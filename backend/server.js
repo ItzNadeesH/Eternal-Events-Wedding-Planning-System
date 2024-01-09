@@ -1,7 +1,11 @@
 const express = require('express');
+const connectDB = require('./config/db');
 
 // express app
 const app = express();
+
+// Connect Database
+connectDB();
 
 // routes
 app.get('/', (req, res) => {
