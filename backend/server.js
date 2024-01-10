@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const connectDB = require('./config/db');
 const userRoutes = require('./routes/user');
 
@@ -7,6 +8,9 @@ connectDB();
 
 // express app
 const app = express();
+
+// Enable CORS for all routes
+app.use(cors());
 
 // middleware
 app.use(express.json());
