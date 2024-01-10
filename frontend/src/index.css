@@ -1,3 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora&family=Montserrat:wght@400;500&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.font-lora {
+  font-family: 'Lora', serif;
+}
+
+body {
+  font-family: 'Montserrat', serif;
+  font-weight: 500;
+}
+
+* {
+  transition: 0.2s;
+}
