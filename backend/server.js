@@ -1,16 +1,18 @@
 const express = require('express');
 const connectDB = require('./config/db');
-
-// express app
-const app = express();
+const userRoutes = require('./routes/user');
 
 // Connect Database
 connectDB();
 
+// express app
+const app = express();
+
+// middleware
+app.use(express.json());
+
 // routes
-app.get('/', (req, res) => {
-  res.json({ msg: 'Welcome to the app' });
-});
+app.use('/', userRoutes);
 
 // listen for requests
 app.listen(4000, () => {
