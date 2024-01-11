@@ -1,34 +1,17 @@
 import { useState } from 'react';
+import { useSignup } from '../hooks/useSignup';
+import Alert from '../components/Alert';
 
 const Signup = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { signup, isLoading, error } = useSignup();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const response = await fetch('http://localhost:4000/signup', {
-      method: 'POST',
-      body: JSON.stringify({ username, email, password }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    const json = await response.json();
-
-    if (!response.ok) {
-      console.log({ error: json.error });
-      return;
-    }
-
-    if (response.ok) {
-      localStorage.setItem('user', JSON.stringify(json));
-      setUsername('');
-      setEmail('');
-      setPassword('');
-    }
+    await signup(username, email, password);
   };
 
   return (
@@ -110,12 +93,14 @@ const Signup = () => {
             </div>
             <div>
               <button
+                disabled={isLoading}
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-blue-500 px-3 py-1.5 text-sm leading-6 text-white shadow-sm hover:bg-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
               >
                 Sign up
               </button>
             </div>
+            {error && <Alert>{error}</Alert>}
           </form>
           <p className="mt-4 text-center text-sm text-gray-500">
             By continuing you agree to our{' '}
