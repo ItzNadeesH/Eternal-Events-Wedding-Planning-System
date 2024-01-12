@@ -1,11 +1,17 @@
 import { useState } from 'react';
+import { useLogin } from '../hooks/useLogin';
 import loginBG from '../assets/login-bg.svg';
+import Alert from '../components/Alert';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const { login, isLoading, error } = useLogin();
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    await login(email, password);
   };
   return (
     <>
@@ -71,12 +77,14 @@ const Login = () => {
             </div>
             <div>
               <button
+                disabled={isLoading}
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-blue-500 px-3 py-1.5 text-sm leading-6 text-white shadow-sm hover:bg-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
               >
                 Login
               </button>
             </div>
+            {error && <Alert>{error}</Alert>}
           </form>
           <p className="mt-4 text-center text-sm text-gray-500">
             By continuing you agree to our{' '}
