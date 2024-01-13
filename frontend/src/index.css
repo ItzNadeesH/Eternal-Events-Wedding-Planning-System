@@ -7,11 +7,11 @@
   font-family: 'Lora', serif;
 }
 
+.font-montserrat {
+  font-family: 'Montserrat', serif;
+}
+
 body {
   font-family: 'Montserrat', serif;
   font-weight: 500;
-}
-
-* {
-  transition: 0.2s;
 }
